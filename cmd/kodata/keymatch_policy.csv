@@ -1,0 +1,53 @@
+p, log:read, /api/v1/logs/level, read
+p, log:write, /api/v1/logs/level, write
+g, log:write, log:read
+g, super, log:write
+
+p, super, /api/v1/organizations, read
+p, organization:read, /api/v1/organizations/me, read
+p, organization:write, /api/v1/organizations/me, write
+p, organization:delete, /api/v1/organizations/me, delete
+
+g, organizationAdmin, organization:write
+g, organizationAdmin, organization:delete
+g, organizationAdmin, organization:read
+g, super, organizationAdmin
+
+p, user:read, /api/v1/users/:id/organizations, read
+p, user:read, /api/v1/users, read
+p, user:create, /api/v1/users, create
+p, user:create, /api/v1/users/bulk, create
+p, user:read, /api/v1/users/:id, read
+p, user:write, /api/v1/users/:id, write
+p, user:delete, /api/v1/users/:id, delete
+p, baseUser, /api/v1/users/me, delete
+
+p, baseUser, /api/v1/auth/password, create
+p, otp:create, /api/v1/auth/otp/send, create
+p, otp:create, /api/v1/auth/otp/validate, create
+
+g, baseUser, otp:create
+
+g, user:write, user:read
+g, baseUser, user:read
+g, userAdmin, user:create
+g, userAdmin, user:write
+g, userAdmin, user:delete
+
+
+p, post:read, /api/v1/posts, read
+p, post:read, /api/v1/posts/:id, read
+p, post:create, /api/v1/posts, create
+p, post:write, /api/v1/posts/:id, write
+p, post:delete, /api/v1/posts/:id, delete
+
+
+g, baseUser, post:read
+
+g, baseUser, post:read
+g, baseUser, post:write
+g, baseUser, post:delete
+g, baseUser, post:create
+g, userAdmin, baseUser
+g, organizationAdmin, userAdmin
+
